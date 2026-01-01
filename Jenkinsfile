@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.10'
-        }
-    }
+    agent any
 
     stages {
         stage('Checkout Code') {
@@ -18,9 +14,15 @@ pipeline {
             }
         }
 
+        stage('Check Python') {
+            steps {
+                sh 'python --version || python3 --version'
+            }
+        }
+
         stage('Run Python Script') {
             steps {
-                sh 'python main.py'
+                sh 'python3 main.py || python main.py'
             }
         }
     }
