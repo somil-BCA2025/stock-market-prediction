@@ -2,22 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
+        stage('Checkout Code') {
             steps {
-                echo 'Repository cloned successfully'
+                checkout scm
             }
         }
 
-        stage('Build') {
+        stage('Verify Files') {
             steps {
-                echo 'Building the project'
+                sh 'ls -l'
             }
         }
 
-        stage('Test') {
+        stage('Run Python Script') {
             steps {
-                echo 'Running tests'
+                sh 'python3 main.py'
             }
         }
     }
 }
+
