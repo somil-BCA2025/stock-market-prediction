@@ -8,21 +8,25 @@ pipeline {
             }
         }
 
-        stage('Verify Files') {
+        stage('Install Python') {
             steps {
-                sh 'ls -l'
+                sh '''
+                apt-get update
+                apt-get install -y python3 python3-pip
+                '''
             }
         }
 
-        stage('Check Python') {
+        stage('Verify Files') {
             steps {
-                sh 'python --version || python3 --version'
+                sh 'ls -l'
+                sh 'python3 --version'
             }
         }
 
         stage('Run Python Script') {
             steps {
-                sh 'python3 main.py || python main.py'
+                sh 'python3 main.py'
             }
         }
     }
